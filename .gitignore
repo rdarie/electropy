@@ -7,7 +7,7 @@ electropy\.egg-info/
 # Python
 __pycache__/
 *.pyc
-
+*.pickle
 # Python-related temp files
 .coverage
 .pytest_cache/

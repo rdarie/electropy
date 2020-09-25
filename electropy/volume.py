@@ -1,5 +1,5 @@
 import numpy as np
-
+from tqdm import tqdm
 
 def potential(
     charge_objs,
@@ -25,8 +25,8 @@ def potential(
 
     potential_grid = np.zeros([x.size, y.size, z.size], dtype=float)
 
-    for charge in charge_objs:
-        for (i, j, k), _ in np.ndenumerate(potential_grid):
+    for charge in tqdm(charge_objs):
+        for (i, j, k), _ in tqdm(np.ndenumerate(potential_grid)):
             potential_grid[i][j][k] += charge.potential([x[i], y[j], z[k]])
 
     return potential_grid
@@ -64,8 +64,8 @@ def field(
     else:
         field_grid = np.zeros([x.size, y.size, z.size], dtype=float)
 
-    for charge in charge_objs:
-        for (i, j, k), _ in np.ndenumerate(field_grid):
+    for charge in tqdm(charge_objs):
+        for (i, j, k), _ in tqdm(np.ndenumerate(field_grid)):
             if field_grid[i][j][k] is None:
                 if component is None:
                     field_grid[i][j][k] = charge.field(
@@ -148,4 +148,8 @@ class potentialSolution:
             self.hessianPhi[i][j][k][a][b] = self.D2Phi[dL[a]][dL[b]][i, j, k]
 
     def getActivatingFunction(self, x, y, z, directionVector):
-        return np.inner(directionVector, np.inner(self.hessianPhi[x, y, z, :, :], directionVector))
+        return np.inner(
+            directionVector,
+            np.inner(
+                self.hessianPhi[x, y, z, :, :],
+                directionVector))
