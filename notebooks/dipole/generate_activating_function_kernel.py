@@ -23,9 +23,9 @@ chargeVal = currentUnits * eps0 / sigma # C
 #
 electrodeSize = [1e-3, 4e-3]
 electrodePosition = [0, 0]
-h = 1e-3
+h = 2e-3
 electrode_h = .5e-3
-volume_dim = [20e-3, 20e-3, 10e-3]
+volume_dim = [25e-3, 40e-3, 10e-3]
 charges = []
 
 dX = np.arange(0, electrodeSize[0] * 1.01, electrode_h) - electrodeSize[0] / 2
